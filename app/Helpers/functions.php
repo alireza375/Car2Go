@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Str;
-use App\Models\Otp;
 use Carbon\Carbon;
+use App\Models\Otp;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+
 
 
 function errorResponse($message = null, $status = 400, $data = null,)
@@ -14,6 +15,13 @@ function errorResponse($message = null, $status = 400, $data = null,)
 }
 
 function successResponse($message = null, $data = null, $status = 200)
+{
+    $message = $message ? $message :  'success';
+    $response  = ['error' => false, 'status' => $status, 'msg' => $message, 'data' =>  $data];
+    return response()->json($response, $status);
+}
+
+function successResponseregistration($message = null, $data = null, $status = 200)
 {
     $message = $message ? $message :  'success';
     $response  = ['error' => false, 'status' => $status, 'msg' => $message, 'data' =>  $data];
@@ -151,6 +159,58 @@ function fileUploadAWS($file, $path, $old_file = null)
         return $e->getMessage();
     }
 }
+
+
+function removeFile($path, $old_file)
+{
+    $url =  asset($path);
+    $old_file_name = str_replace($url . '/', '', $old_file);
+
+    if (isset($old_file) && $old_file != "" && file_exists($path . $old_file_name)) {
+        unlink($path . $old_file_name);
+    }
+    return true;
+}
+
+
+/**
+ * File upload
+ */
+
+ function fileUpload($file, $path, $old_file = null)
+ {
+     try {
+         if (!file_exists(public_path($path))) {
+            mkdir(public_path($path), 0777, true);
+         }
+         $file_name = time() . '_' . randomNumber(16) . '_' . $file->getClientOriginalName();
+         $destinationPath = public_path($path);
+
+         # old file delete
+         if ($old_file) {
+            removeFile($path, $old_file);
+         }
+         # resize image
+         if (filesize($file) / 1024 > 2048) {
+
+             // enable extension=gd2
+             // $file->orientate(); //so that the photo does not rotate automatically
+
+             Image::make($file)->orientate()->save($destinationPath . $file_name, 60);
+             // quality = 60 low, 75 medium, 80 original
+         } else {
+             #original image upload
+             $file->move($destinationPath, $file_name);
+         }
+
+         // $file->move($destinationPath, $file_name);
+
+         return $path . $file_name;
+     } catch (Exception $e) {
+         // dd($e);
+         return null;
+     }
+ }
 
 function fileRemoveAWS($path)
 {

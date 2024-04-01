@@ -29,8 +29,8 @@ class HeaderService
     // For Index Data
     public function index(){
         // select( 'logo','navber','link')->get();
-        $data = Header::select( 'id as _id', 'logo', 'navber', 'link', 'created_at as createdAt', 'updated_at as updatedAt')->get();
-        // $data = HeaderResource::collection($data);
+        $data = Header::get();
+        $data = HeaderResource::collection($data);
         return successResponse(__('Data fetched successfully.'), $data);
 
     }

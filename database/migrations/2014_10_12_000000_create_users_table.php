@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('uuid', 64)->unique();
+            $table->string('Name')->index();
+            $table->string('phone')->nullable();
+            $table->text('image')->nullable();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->tinyInteger('role')->comment('user = 1,admin = 3')->default(USER);
+            $table->tinyInteger('status')->comment('active = 1,inactive = 0')->default(INACTIVE);
+            $table->boolean('is_mail_verified')->default(DISABLE);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -29,4 +34,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
+
 };

@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\SolutionController;
 use App\Http\Controllers\Admin\TestimonialController;
-use App\Models\Download;
 
 /*
 |--------------------------------------------------------------------------

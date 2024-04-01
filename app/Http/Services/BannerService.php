@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Http\Resources\BannerResource;
 use Exception;
 use App\Models\Banner;
 use Illuminate\Http\Request;
@@ -45,7 +46,8 @@ class BannerService
 
     // For Banner List
     public function index(){
-        $data = Banner::select('id as _id', 'image1', 'image2', 'image3', 'title', 'short_description', 'button', 'created_at as createdAt', 'updated_at as updatedAt')->get();
+        $data = Banner::get();
+        $data = BannerResource::collection($data);
         return successResponse(__('Banner fetched successfully.'), $data);
 
     }
