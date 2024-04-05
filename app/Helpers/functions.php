@@ -14,11 +14,11 @@ function errorResponse($message = null, $status = 400, $data = null,)
     return response()->json($response, $status);
 }
 
-function successResponse($message = null, $data = null, $status = 200)
+function successResponse($message = null, $data = null)
 {
     $message = $message ? $message :  'success';
-    $response  = ['error' => false, 'status' => $status, 'msg' => $message, 'data' =>  $data];
-    return response()->json($response, $status);
+    $response  = ['error' => false, 'msg' => $message, 'data' =>  $data];
+    return response()->json($response );
 }
 
 function successResponseregistration($message = null, $data = null, $status = 200)

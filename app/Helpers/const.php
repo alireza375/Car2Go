@@ -42,7 +42,7 @@ const PERPAGE_PAGINATION = 10;
  * Images path
  */
 
-// const PATH_GALLERIES   = 'uploaded_files/galleries/';
+const PATH_GALLERIES   = 'uploaded_files/galleries/';
 // const PATH_USER_IMAGE   = 'uploaded_files/galleries/users/';
 // const PATH_DOCUMENTS   = 'uploaded_files/documents/';
 

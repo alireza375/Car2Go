@@ -35,7 +35,8 @@
         },
         "files": [
             "app/Helpers/functions.php",
-            "app/Helpers/const.php"
+            "app/Helpers/const.php",
+            "app/Helpers/JWTToken.php"
         ]
         },
     "scripts": {

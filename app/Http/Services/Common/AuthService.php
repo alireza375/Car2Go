@@ -81,6 +81,7 @@ class AuthService
         ]);
     }
 
+    // Reset passwordc
     public function ResetPassword($request)
     {
         $decoded = JWT::decode($request->token, new Key(env('JWT_SECRET'), 'HS256'));
@@ -94,6 +95,7 @@ class AuthService
         $user->password = Hash::make($request->password);
         $user->save();
         return successResponse(__('Password reset successfully'));
+
     }
 
 

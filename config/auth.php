@@ -53,7 +53,10 @@ return [
         'admin' => [
             'driver' => 'passport',
             'provider' => 'users',
-        ]
+        ],
+        'api' => [
+            'driver' => 'jwt',
+        ],
     ],
 
     /*

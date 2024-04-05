@@ -14,7 +14,8 @@ class ProfileService
             'name' => $request->Name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'image' => $request->phone,
+            'image' => $request->hasFile('image') ? fileUpload($request->file('image'), PATH_GALLERIES) :  null,
+
         ];
         return $data;
     }
